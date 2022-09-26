@@ -1,5 +1,37 @@
-spring:
-  datasource:
-    uri: myEnvironment
-    username: root
-    password: password
+properties:
+  iris:
+    security:
+      ignores: /css/**, /fonts/**, /img/**, /js/**, /favicon.ico
+      permit-alls: /**, /h2-console/**, /sample/public-key, /sample/authenticate, /error, /test, /api/**
+      redirect-url: /
+      iframe-option: disable #disable, same-origin, deny
+      csrf: true
+      cors:
+        pattern: /** #/auth/**
+        allowed-origins: http://localhost:3000 #"*" #http://server-name:port
+        allowed-methods: "*" #PUT,DELETE,GET,POST ...
+        allowed-headers: "*" #Context-Type, ...
+        allow-credentials: true
+      same-site: Lax #None, Lax, Strict
+    token:
+      name: x-access-token
+      secret: jwt-secrect-b-iris
+      max-age: 3600
+    server:
+      brick: http://192.168.102.202
+      angora: http://192.168.102.202:6036/angora
+      meta: http://192.168.102.202/meta
+    url:
+      brick:
+        auth: "${properties.iris.server.brick}/authenticate"
+        token-check: "${properties.iris.server.brick}/api/token/check"
+      angora:
+        auth: "${properties.iris.server.angora}/auth"
+        token-check: "${properties.iris.server.angora}/ping"
+    route:
+      locales: ko,en,zh,ja
+    auth:
+      rsa-enabled: true
+    test:
+      brick-username: root
+      brick-password: "!Biris.test202"
