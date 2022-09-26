@@ -36,7 +36,7 @@ properties:
       brick-username: root
       brick-password: "!Biris.test202"
     sample:
-      first: ABCDE
-      second: 가나다라
-      third: 12345
+      first: ABCD
+      second: 가나다
+      third: 1234
 
